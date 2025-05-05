@@ -9,7 +9,6 @@ of streaming readout in the ePIC experiment.
 ### NPPS Distributed Software
 https://chat.sdcc.bnl.gov/npps/channels/distributed-software
 
-### CERN-based PanDA forum
-https://mattermost.web.cern.ch/panda/channels/town-square
+[CERN-based PanDA forum](https://mattermost.web.cern.ch/panda/channels/town-square){:target="_blank"}
 
 
