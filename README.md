@@ -7,8 +7,8 @@ of streaming readout in the ePIC experiment.
 ## Mattermost resources
 
 [NPPS Distributed Software](https://chat.sdcc.bnl.gov/npps/channels/distributed-software)
-
 [CERN-based PanDA forum](https://mattermost.web.cern.ch/panda/channels/town-square)
+[CERN-based technical forum - for experts](https://mattermost.web.cern.ch/panda/channels/technical-forum)
 
 ## PanDA Queues
 
@@ -26,6 +26,7 @@ To get a grid certificate, different institutions may use different CAs.
 
 ## PanDA client installation
 
+### Short version
 ```bash
 python3 -m venv pclient
 . pclient/bin/activate
@@ -35,7 +36,26 @@ pip install panda-client
 Depending on the Python version, the user may see a deprecation note regarding the packaging (setup vs TOML).
 
 
+### Detailed instructions
+
+https://panda-wms.readthedocs.io/en/latest/client/panda-client.html
+
 ## PanDA IAM registration
 
 * Regsiter at https://panda-iam-doma.cern.ch
-* When the client is run for the first time, there will be a link presented to the user
+* When the client is run for the first time, there will be a validation link presented to the user
+
+
+## CVMFS
+
+Pretty good instruction to set it up:
+
+https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html
+
+## Setting up Rucio
+
+```
+source /cvmfs/eic.opensciencegrid.org/rucio-clients/alrb_setup.sh
+voms-proxy-init (no VOMS extension needed)
+export RUCIO_ACCOUNT=<youraccount>
+```
