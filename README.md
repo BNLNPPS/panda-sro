@@ -54,8 +54,47 @@ https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html
 
 ## Setting up Rucio
 
-```
+```bash
 source /cvmfs/eic.opensciencegrid.org/rucio-clients/alrb_setup.sh
 voms-proxy-init (no VOMS extension needed)
 export RUCIO_ACCOUNT=<youraccount>
+```
+
+## Setting up PanDA access
+
+Source the "panda_setup" script in the _scripts_ folder. The following is also
+required:
+
+```bash
+export PANDA_URL_SSL=https://pandaserver01.sdcc.bnl.gov:25443/server/panda
+export PANDA_URL=https://pandaserver01.sdcc.bnl.gov:25443/server/panda
+export PANDACACHE_URL=https://pandaserver01.sdcc.bnl.gov:25443/server/panda
+export PANDAMON_URL=https://pandamon01.sdcc.bnl.gov
+export PANDA_AUTH=oidc
+export PANDA_AUTH_VO=EIC
+export PANDA_USE_NATIVE_HTTPLIB=1
+export PANDA_BEHIND_REAL_LB=1
+```
+
+For convenience, both components are combined in "setup_all.sh" in the same folder.
+
+
+
+## Submitting Jobs
+
+```bash
+prun --exec "pwd; ls; sleep 100; echo 'Hello EIC world'> eic.txt" --outDS user.potekhin.`uuidgen` --nJobs 1 --vo wlcg --site BNL_PanDA_1 --prodSourceLabel test --workingGroup ${PANDA_AUTH_VO} --noBuild
+```
+
+## Rucio Interaction
+
+Example of a query:
+
+```bash
+rucio list-file-replicas user.potekhin:user.potekhin.fdeb5357-2de7-46f5-8bee-5942e9b551c0.log.8337.000001.log.tgz
+```
+
+Download:
+```bash
+rucio download user.potekhin:myfile --dir /tmp/
 ```
