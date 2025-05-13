@@ -17,7 +17,7 @@ of streaming readout in the ePIC experiment.
 submitting pilots to the Open Science Pool as a normal user. Right now this OSG AP is configured to run jobs on EIC shared
 resources on OSG.
 
-## Gri Certificate
+## Grid Certificate
 
 To get a grid certificate, different institutions may use different CAs. 
 * These are instructions on how to get a grid certificate from the CERN CA and CILogon: https://www.sdcc.bnl.gov/information/installing-grid-certificate
@@ -52,11 +52,17 @@ Pretty good instruction to set it up:
 
 https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html
 
+Under WSL2, _systemctl_ will likely not work, so instead one needs to use commands like
+
+```bash
+sudo service autofs restart
+```
+
 ## Setting up Rucio
 
 ```bash
 source /cvmfs/eic.opensciencegrid.org/rucio-clients/alrb_setup.sh
-voms-proxy-init (no VOMS extension needed)
+voms-proxy-init (no VOMS extension needed) # standard auth files: usercert.pem and userkey.pem in the .ssh folder
 export RUCIO_ACCOUNT=<youraccount>
 ```
 
@@ -88,9 +94,18 @@ prun --exec "pwd; ls; sleep 100; echo 'Hello EIC world'> eic.txt" --outDS user.p
 
 ## Rucio Interaction
 
-Example of a query:
+### Access to the storage element
+
+To be able to transfer data to and from the storage allocated for PanDA tasks, the user
+needs their DN added to the storage ACL. This is achieved by filing a RT ticket with the facility.
+
+### Example
+Example of queries:
 
 ```bash
+# list all, for one user
+rucio list-dids --filter 'type=all' user.potekhin:*
+# list replicas
 rucio list-file-replicas user.potekhin:user.potekhin.fdeb5357-2de7-46f5-8bee-5942e9b551c0.log.8337.000001.log.tgz
 ```
 
